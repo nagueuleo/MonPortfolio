@@ -1,279 +1,60 @@
-/*--------------- navigation menu ----------------- */
-(() => {
-    const hamburgerBtn = document.querySelector(".hamburger-btn"),
-    navMenu = document.querySelector(".nav-menu"),
-    closeNavBtn = navMenu.querySelector(".close-nav-menu");
+/* Rendu du contenu à partir de DATA, selon les éléments présents dans la page */
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const set = (s, f) => { const e = $(s); if (e) f(e); };
+const ROOT = document.body.dataset.root || '';
+const chips = a => a.map(t => `<span class="chip">${esc(t)}</span>`).join('');
 
-    hamburgerBtn.addEventListener("click", showNavMenu);
-    closeNavBtn.addEventListener("click", hideNavMenu);
+$$('[data-photo]').forEach(w => {   // photo, avec repli si le fichier est absent
+  const i = new Image(); i.alt = 'Portrait de ' + DATA.name;
+  i.onerror = () => { i.onerror = null; i.src = ROOT + 'assets/img/Lionel.png'; };
+  i.src = ROOT + DATA.photo; w.prepend(i);
+});
+set('#h-first', e => e.textContent = DATA.first); set('#h-mid', e => e.textContent = DATA.mid); set('#h-last', e => e.textContent = DATA.last);
+set('#h-role', e => e.textContent = DATA.roleLine); set('#h-place', e => e.textContent = DATA.place);
+set('#p-text', e => e.innerHTML = DATA.profile.map(p => `<p>${esc(p)}</p>`).join('')); set('#p-avail', e => e.textContent = DATA.avail);
+set('#tiles', e => e.innerHTML = DATA.tiles.map(t => `<div class="tile">${esc(t)}</div>`).join(''));
+set('#social', e => e.innerHTML = DATA.social.map(([i, u, l]) => `<a href="${u}" target="_blank" rel="noopener" aria-label="${l}"><i class="bi ${i}"></i></a>`).join(''));
+set('#stats', e => e.innerHTML = DATA.stats.map(([n, l, s]) => `<div class="stat"><b data-n="${n}" data-s="${s || ''}">0</b><span>${l}</span></div>`).join(''));
+set('#c-mail', e => { e.textContent = DATA.email; e.href = 'mailto:' + DATA.email; });
+set('#c-loc', e => e.textContent = DATA.location);
 
-    function showNavMenu(){
-        navMenu.classList.toggle("open");
-        fadeOutEffect();
-    }
+/* CV */
+set('#cv-dl', e => e.href = ROOT + DATA.cv);
+set('#tl', e => e.innerHTML = DATA.career.map(c => `<div class="tl-item"><span class="when">${c.when}</span><h3>${esc(c.role)}</h3><p class="org">${esc(c.org)}</p><span class="chip">${esc(c.tag)}</span><ul class="pts">${c.points.map(p => `<li>${esc(p)}</li>`).join('')}</ul></div>`).join(''));
+set('#tools', e => e.innerHTML = DATA.tools.map(g => `<div class="trow"><b>${esc(g.g)}</b><div>${chips(g.items)}</div></div>`).join(''));
+set('#edu', e => e.innerHTML = DATA.education.map(c => `<div class="edu"><div><b>${esc(c.t)}</b>${c.org ? `<small>${esc(c.org)}</small>` : ''}</div><span class="bd">${c.y}</span></div>`).join(''));
 
-    function hideNavMenu(){
-        navMenu.classList.remove("open");
-        fadeOutEffect();
-        bodyScrollingToggle();
-    }
+/* Certifications */
+const LOGOS = {
+  simplilearn: '<span class="lg"><img src="https://d2u1z1lopyfwlx.cloudfront.net/thumbnails/80345c7f-57dd-50a7-8541-c939ae8d6e41/16a2533d-f527-5701-b3bd-b06c73048ca9.jpg"alt="Simplilearn"style="height: 40px; width: auto;"></span>',
+  linkedin: '<span class="lg"><i class="bi bi-linkedin" style="color:#0A66C2"></i></span>',
+  dbt: '<span class="lg"><img src="https://d2u1z1lopyfwlx.cloudfront.net/thumbnails/d8b6b2cb-8a14-511c-86f4-8ec8d4137459/fe1b7609-5021-5804-b914-b73137da8030.jpg"alt="dbt"style="height: 40px; width: auto;"></span>',
+};
+set('#certs', e => e.innerHTML = DATA.certs.map(c => `<div class="col-md-6 col-lg-4"><article class="card-x cert">${c.img ? `<span class="lg"><img src="${ROOT}${c.img}" alt="" width="32" height="32"></span>` : (LOGOS[c.logo] || '')}<h3>${esc(c.t)}</h3><p class="org">${esc(c.org)}</p><div class="ft"><span class="bd">${c.y}</span>${c.done ? '<span class="bd ok">Obtenu ✓</span>' : '<span class="bd wip">En cours…</span>'}</div></article></div>`).join(''));
 
-    function fadeOutEffect(){
-        document.querySelector(".fade-out-effect").classList.add("active");
-        bodyScrollingToggle();
-        setTimeout(() => {
-            document.querySelector(".fade-out-effect").classList.remove("active");
-        }, 300);
-    }
-
-    /*----------- attach an event handler to document  ---------- */
-    document.addEventListener("click", (event) =>{
-        if(event.target.classList.contains('link-item')){
-            // make sure event.target.hash has a value before overridding default behavior
-            if(event.target.hash !== ""){
-                // prevemnt defaul anchor click behavior 
-                event.preventDefault();
-                const hash = event.target.hash;
-                // deactivate existing active 'section'
-                document.querySelector(".section.active").classList.add(".hide");
-                document.querySelector(".section.active").classList.remove("active");
-                // active new 'section';
-                document.querySelector(hash).classList.add("active");
-                document.querySelector(hash).classList.remove("hide");
-                // deactivate existing active navigation menu 'link-item'
-                navMenu.querySelector(".active").classList.add("outer-shadow", "hover-in-shadow");
-                navMenu.querySelector(".active").classList.remove("active", "inner-shadow");
-                // if clicked 'link-item' is contained within the navigation menu 
-                if(navMenu.classList.contains("open")){
-                    // activate new navigation menu 'link-item'
-                    event.target.classList.add("active", "inner-shadow");
-                    event.target.classList.remove("outer-shadow", "hover-in-shadow");
-                    // hide navigation manu 
-                    hideNavMenu();
-                }
-                else{
-                    let navItems = navMenu.querySelectorAll(".link-item");
-                    navItems.forEach((item) =>{
-                        if(hash === item.hash){
-                            // activate new navigation menu 'link-item'
-                            item.classList.add("active", "inner-shadow");
-                            item.classList.remove("inner-shadow", "hover-in-shadow");
-                        }
-                    })
-                    fadeOutEffect();
-                }
-                // add hash (#) to url 
-                window.location.hash = hash;
-            }
-        }
-    })
-})();
-
-// about tab 
-(() => {
-    const aboutSection = document.querySelector(".about-section"),
-    tabsContainer = document.querySelector(".about-tabs");
-
-    tabsContainer.addEventListener("click", (event) => {
-        if(event.target.classList.contains("tab-item") && !event.target.classList.contains("active")){
-            const target = event.target.getAttribute("data-target");
-            tabsContainer.querySelector(".active").classList.remove("outer-shadow", "active");
-            event.target.classList.add("active", "outer-shadow")
-            aboutSection.querySelector(".tab-content.active").classList.remove("active");
-            aboutSection.querySelector(target).classList.add("active");
-        }
-    })
-    
-})();
-
-function bodyScrollingToggle() {
-    // document.body.classList.toggle("stop-scrolling");
+/* Projets */
+const G = { PowerBI: ['#B45309', '#EAB308', 'bi-bar-chart-line-fill'], Python: ['#1D4ED8', '#0EA5E9', 'bi-graph-up-arrow'], Excel: ['#15803D', '#4ADE80', 'bi-table'] };
+if ($('#projects')) {
+  $('#filters').innerHTML = DATA.filters.map((c, i) => `<button class="pill ${i ? '' : 'on'}" data-f="${c}">${c}</button>`).join('');
+  $('#projects').innerHTML = DATA.projects.map(p => {
+    const [g1, g2, ic] = G[p.cat] || G.Python;
+    const ov = p.live ? `<a class="pill-live" href="${p.live}" target="_blank" rel="noopener">Voir l’application ↗</a>` : p.video ? `<a class="play" href="${p.video}" target="_blank" rel="noopener" aria-label="Voir la vidéo"><i class="bi bi-play-fill"></i></a>` : '';
+    return `<div class="col-md-6 col-lg-4 proj-wrap" data-cat="${p.cat}"><article class="card-x proj"><div class="thumb" style="--g1:${g1};--g2:${g2}"><i class="bi ${ic} bg-i"></i>${p.img ? `<img src="${ROOT}${p.img}" alt="" loading="lazy" onerror="this.remove()">` : ''}<div class="ov">${ov}</div></div><div class="pb"><div>${chips(p.tags)}</div><h3>${esc(p.t)}</h3><p>${esc(p.d)}</p><div class="mt">${p.m.map(x => `<span class="bd">${esc(x)}</span>`).join('')}<div class="lks">${p.live ? `<a href="${p.live}" target="_blank" rel="noopener">Application live →</a>` : ''}${p.github ? `<a href="${p.github}" target="_blank" rel="noopener">Voir sur GitHub →</a>` : ''}</div></div></div></article></div>`;
+  }).join('');
+  $('#filters').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    $$('#filters .pill').forEach(x => x.classList.toggle('on', x === b));
+    $$('.proj-wrap').forEach(w => w.classList.toggle('d-none', b.dataset.f !== 'Tous' && w.dataset.cat !== b.dataset.f));
+  });
 }
 
-/* --------------- portfolio filter and popup ----------------- */
-(() => {
-    const filterContainer = document.querySelector(".portfolio-filter"),
-    portfolioItemsContainer = document.querySelector(".portfolio-items"),
-    portfolioItems = document.querySelectorAll(".portfolio-item"),
-    popup = document.querySelector(".portfolio-popup"),
-    preBtn = popup.querySelector(".pp-pre"),
-    nextBtn = popup.querySelector(".pp-next"),
-    closeBtn = popup.querySelector(".pp-close"),
-    projectDetailsContainer = popup.querySelector(".pp-details"),
-    project_details = popup.querySelector(".pp-project-details"),
-    projectDetailsBtn = popup.querySelector(".pp-project-details-btn");
-    let itemIndex, slideIndex, screenshots;
+/* Formulaire de contact */
+set('#form', f => f.addEventListener('submit', e => {
+  e.preventDefault(); f.classList.add('was-validated'); if (!f.checkValidity()) return;
+  const s = encodeURIComponent('Contact depuis le portfolio – ' + $('#nom').value);
+  const b = encodeURIComponent($('#msg').value + '\n\n' + $('#nom').value + ' (' + $('#mail').value + ')');
+  $('#ok').classList.remove('d-none'); location.href = `mailto:${DATA.email}?subject=${s}&body=${b}`;
+}));
 
-    /* filter portfolio items */
-    filterContainer.addEventListener("click", (event) => {
-        if(event.target.classList.contains("filter-item") &&
-        !event.target.classList.contains("active")){
-            // deactivate existing active 'filter-item' 
-            filterContainer.querySelector(".active").classList.remove("outer-shadow", "active");
-            // active new `filter item'
-            event.target.classList.add("active", 'outer-shadow');
-
-            const target = event.target.getAttribute("data-target");
-            portfolioItems.forEach((item) =>{
-                if(target === item.getAttribute("data-category") || target === 'all'){
-                    item.classList.remove("hide");
-                    item.classList.add("show");
-                }
-                else{
-                    item.classList.remove("show");
-                    item.classList.add("hide");
-                }
-            })
-        }
-    
-    })
-
-    portfolioItemsContainer.addEventListener("click", (event) =>{
-        if(event.target.closest(".portfolio-item-inner")){
-            const portfolioItem = event.target.closest(".portfolio-item-inner").parentElement;
-            // get the portfolio items index 
-            itemIndex = Array.from(portfolioItem.parentElement.children).indexOf(portfolioItem);
-            screenshots = portfolioItems[itemIndex].querySelector(".portfolio-item-image img").getAttribute("data-screenshots");
-            // convert screenshots into array 
-            screenshots = screenshots.split(",");
-            if(screenshots.length === 1 ){
-                preBtn.style.display = "none";
-                nextBtn.style.display ="none";
-            }
-    
-            else{
-                preBtn.style.display = "block";
-                nextBtn.style.display ="block";
-            }
-            slideIndex = 0;
-            popupToggle();
-            popupSlideshow();
-            popupDetails();
-        }
-        
-    })
-
-    closeBtn.addEventListener("click", () =>{
-        popupToggle();
-        if(projectDetailsContainer.classList.contains("active")){
-            popupDetailsToggle();
-        }
-    })
-
-    function popupToggle() {
-        popup.classList.toggle("open");
-        bodyScrollingToggle();
-    }
-
-    function popupSlideshow() {
-        const imgSrc = screenshots[slideIndex]
-        const popupImg = popup.querySelector(".pp-img");
-        /**
-         * active loader until the popupImg loaded 
-         */
-
-        popup.querySelector(".pp-loader").classList.add("active");
-        popupImg.src = imgSrc;
-        popupImg.onload = () =>{
-            popup.querySelector(".pp-loader").classList.remove("active");
-        }
-        let last_num = Number( screenshots.length);
-        last_num-1;
-        popup.querySelector(".pp-counter").innerHTML = (slideIndex + 1 ) + " of " + last_num;
-
-
-    }
-
-    function sendmail(){
-
-    }
-
-    function popupDetails(){
-        if(!portfolioItems[itemIndex].querySelector(".portfolio-item-details")){
-            projectDetailsBtn.style.display = "none";
-            popup.querySelector(".pp-details").style.maxHeight = "0px";
-            popup.querySelector(".pp-details").classList.remove("active");
-            projectDetailsBtn.querySelector("i").classList.add("fa-plus");
-            return;
-        }
-        else{
-            projectDetailsBtn.style.display = "block";
-            // projectDetailsContainer.style.maxHeight = projectDetailsContainer.scrollHeight + "px";
-        }
-
-        const details = portfolioItems[itemIndex].querySelector(".portfolio-item-details").innerHTML;
-        project_details.innerHTML = details;
-
-        const title = portfolioItems[itemIndex].querySelector(".portfolio-item-title").innerHTML;
-        popup.querySelector(".pp-title h2").innerHTML = title;
-
-        const category = portfolioItems[itemIndex].getAttribute("data-category");
-        popup.querySelector(".pp-project-category").innerHTML = category.split("-").join(" ");
-
-    }
-
-    // next slide 
-    nextBtn.addEventListener("click", () =>{
-        if(slideIndex === screenshots.length-1){
-            slideIndex = 0;
-        }
-        else{
-            slideIndex++;
-        }
-        popupSlideshow();
-    })
-
-    // pre slide
-    preBtn.addEventListener("click", () =>{
-        if(slideIndex === 0){
-            slideIndex = screenshots.length-1
-        }
-        else{
-            slideIndex--;
-        }
-        popupSlideshow();
-    })
-
-    projectDetailsBtn.addEventListener("click", () =>{
-        popupDetailsToggle();
-    })
-
-    function popupDetailsToggle(){
-        if(projectDetailsContainer.classList.contains("active")){
-            projectDetailsBtn.querySelector("i").classList.remove("fa-minus");
-            projectDetailsBtn.querySelector("i").classList.add("fa-plus");
-
-            popup.querySelector(".pp-details").classList.remove("active");
-            popup.querySelector(".pp-details").style.maxHeight = "0px";
-        }
-        else{
-            projectDetailsBtn.querySelector("i").classList.remove("fa-plus");
-            projectDetailsBtn.querySelector("i").classList.add("fa-minus");
-
-            projectDetailsContainer.style.maxHeight = projectDetailsContainer.scrollHeight + "px";
-            popup.querySelector(".pp-details").classList.add("active");
-            popup.scrollTo(0, projectDetailsContainer.offsetTop)
-        }
-    }
-    
-
-    /* --------------- hide all section expect active ----------------- */
-    
-})();
-
-// (() =>{
-//     const section = document.querySelectorAll(".section");
-//     section.forEach((section) => {
-//         if(!section.classList.contains("active")){
-//             section.classList.add("hide");
-//         }
-//     })
-// })();
-
-window.addEventListener("load", () =>{
-    // preload
-    document.querySelector(".preloader").classList.add("fade-out");
-    setTimeout(() =>{
-        document.querySelector(".preloader").style.display = "none";
-    }, 600)
-})
+Anim.init();
