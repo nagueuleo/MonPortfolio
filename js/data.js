@@ -2,14 +2,14 @@
 const DATA = {
   name: "Lionel Nagueu Djambong", first: "Lionel", mid: "Nagueu", last: "Djambong",
   job: "Data Analyst | Analytics Engineer",
-  photo: "assets/img/logo2.png", // votre photo détourée (fond transparent) : assets/img/photo.png
+  photo: "assets/img/Lionel.png", // votre photo détourée (fond transparent) : assets/img/photo.png
   logo: "assets/img/logo2.png",   // votre logo (header et footer) ; sans fichier, « LD. » s’affiche
   roleLine: "Data Analyst | Analytics Engineer",
   place: "Basée en France",
   email: "lpnagueudjambong@gmail.com",
   location: "Lille, France · Disponible en distanciel",
   social: [["bi-linkedin","https://www.linkedin.com/in/lionel-nagueu-djambong-7a4a1715a","LinkedIn"],["bi-github","https://github.com/nagueuleo/","GitHub"],["bi-envelope","mailto:lpnagueudjambong@gmail.com","E-mail"]],
-  stats: [[2,"ans d’expérience","+"],[5,"projets réalisés","+"],[95,"fiabilité données","%"]],
+  stats: [[2,"ans d’expérience","+"],[18,"projets réalisés","+"],[95,"fiabilité données","%"]],
   profile: ["Data Analyst avec 2 ans d’expérience en environnements variés (Energie, agriculture, Banque), Je conçois des pipelines de données fiables  via SQL, Snowflake, dbt, Power BI et Machine Learning.","Chaque pipeline que je construis, chaque modèle que j’entraîne, chaque dashboard que je livre a un seul objectif : créer de la valeur métier mesurable."],
   avail: "Disponible dès maintenant · Mobilité France entière",
   tiles: ["Power BI · DAX","Python · Pandas","SQL · PL/SQL","Snowflake, Databricks","Machine Learning","DBT · ELT","BigQuery · GCP","Scikit-learn"],
