@@ -15,25 +15,27 @@ const DATA = {
   tiles: ["Power BI · DAX","Python · Pandas","SQL · PL/SQL","Snowflake, Databricks","Machine Learning","DBT · ELT","BigQuery · GCP","Airflow · Airbyte","Docker · Git · CI/CD", "JIRA"],
   career: [
     {when:"Décembre 2025 – Juin 2026 · 7 mois · Hybride",role:"Data anlyst | Analytics engineer",org:"Crédit Agricole(Sofinco)",tag:"Banque / Finance",points:[
-      "structurer les métadonnées des modèles DBT afin d’automatiser leur documentation technique et de faciliter la compréhension des traitements existants.",
-      "Analyser les flux et sources de données en amont des pipelines afin d’identifier les risques liés à la fiabilité et à la fraîcheur des données de production.",
-      "Conçu des dashboard Power BI et orchestré avec Apache Airflow un dispositif de monitoring des KPI, permettant de réduire de 70 % le temps d’analyse des équipes marketing.",
+      "Conception et structuration des métadonnées des modèles de données dbt afin d'automatiser leur documentation technique et de faciliter la compréhension des traitements.",
+      "Analyse des flux de données et des sources en amont des pipelines afin d'identifier les risques liés à la qualité, à la fiabilité et à la fraîcheur des données de production.",
+      "Conception de tableaux de bord Power BI et orchestration avec Apache Airflow d'un dispositif de monitoring des KPI.",
+      "Automatisation du suivi des indicateurs de performance, permettant de réduire de 70 % le temps d'analyse des équipes marketing."
       ]},
     {when:"Septembre 2023 – Août 2024 · 12 mois · Yaoundé",role:"Data Analyst",org:"Togettech",tag:"Energie",points:[
-      "Conçu un pipeline ELT complet sous Databricks pour structurer les données de consommation énergétique de 586 ménages",
-      "Réduire de 35 % le délai de mise à disposition des données aux équipes métier en industrialisant le pipeline de reporting en production",
-      "Livrer des modèles de données exploitables et des tableaux de bord Power BI Service pour un suivi fiable des indicateurs de consommation",
+      "Conception et développement d'un pipeline ELT complet sous Databricks pour collecter, transformer et structurer les données de consommation énergétique de 586 ménages.",
+      "Industrialisation du pipeline de reporting et optimisation des traitements de données, permettant de réduire de 35 % les délais de mise à disposition des données aux équipes métier.",
+      "Modélisation des données et production de jeux de données exploitables pour l'analyse des indicateurs de consommation énergétique.",
+      "Conception et déploiement de tableaux de bord interactifs avec Power BI Service pour assurer le suivi et l'analyse des indicateurs de consommation."
     ]},
     {when:"Septembre 2022 – Septembre 2023 · 12 mois · Yaoundé",role:"Data Analyst",org:"Togettech",tag:"Agriculture / climat",points:[
-      "Construire un pipeline ETL avec via un api python intégrant plus de 10 000 enregistrements climatiques et agricoles issus de 5 villes de l'Ouest Cameroun (données ONACC)",
-      "Modélisé et enrichi des données brutes multi-sources pour permettre une analyse temporelle et régionale fiable",
-      "Livrer un rapport Power BI publié sur Power BI Service, connecté à un modèle de données structuré et utilisé par les décideurs agricoles.",
+      "Développement d'un pipeline ETL en Python via API pour collecter, intégrer et traiter plus de 10 000 enregistrements de données climatiques et agricoles issus de 5 villes de l'Ouest Cameroun (ONACC).",
+      "Nettoyage, transformation, enrichissement et modélisation de données multi sources afin de garantir leur fiabilité et de permettre des analyses temporelles et géographiques.",
+      "Conception d'un tableau de bord interactif Power BI connecté à un modèle de données structuré pour analyser les tendances climatiques et agricoles et faciliter la prise de décision des acteurs du secteur agricole.",
       ]}
   ],
   tools: [
-    {g:"BI & Reporting",items:["PowerBI","DAX","Power Query","Tableau Software","Excel"]},
+    {g:"BI & Reporting",items:["PowerBI","DAX","Power Query","Tableau","Excel","Data modeling", "Data warehousing","Data Quality"]},
     {g:"SQL & Bases de données",items:["SQL","NoSQL","PostgreSQL","Snowflake", "Databricks", "MongoDB","MySQL"]},
-    {g:"Python",items:["Pandas","NumPy","Scikit-learn","Matplotlib","Plotly","TensorFlow"]},
+    {g:"Langages de programmation",items:["Python","Spark","Pandas","R"]},
     {g:"Data Engineering",items:["Airbyte","Airflow","BigQuery","GCP","dbt","Git","GitHub","CI/CD"]},
     {g:"Outils & methodes",items:["Docker","Jira","Machine Learning","Scrum", "Knime Analytics"]}
   ],
