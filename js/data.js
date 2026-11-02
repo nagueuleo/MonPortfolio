@@ -14,21 +14,20 @@ const DATA = {
   avail: "Disponible dès maintenant · Mobilité France entière",
   tiles: ["Power BI · DAX","Python · Pandas","SQL · PL/SQL","Snowflake, Databricks","Machine Learning","DBT · ELT","BigQuery · GCP","Airflow · Airbyte","Docker · Git · CI/CD", "JIRA"],
   career: [
-    {when:"Décembre 2025 – Juin 2026 · 7 mois · Hybride",role:"Data anlyst | Analytics engineer",org:"Crédit Agricole(Sofinco)",tag:"Banque / Financier",points:[
-      "Fiabilisation de la qualité et de la fraîcheur des données de production par l’orchestration des pipelines dbt avec Airflow.",
-      "Tests automatisés dbt (unicité, valeurs nulles, intégrité référentielle) et documentation du lineage via dbt docs",
-      "SQL avancé sur Snowflake pour des analyses métier des projets exploitées par les équipes Marketing",
-      "Tableaux de bord Power BI connectés à Snowflake (−70 % de temps d’analyse)",
-      "Versionné et livré le code via Git / GitLab dans un cadre CI/CD"]},
+    {when:"Décembre 2025 – Juin 2026 · 7 mois · Hybride",role:"Data anlyst | Analytics engineer",org:"Crédit Agricole(Sofinco)",tag:"Banque / Finance",points:[
+      "structurer les métadonnées des modèles DBT afin d’automatiser leur documentation technique et de faciliter la compréhension des traitements existants.",
+      "Analyser les flux et sources de données en amont des pipelines afin d’identifier les risques liés à la fiabilité et à la fraîcheur des données de production.",
+      "Conçu des dashboard Power BI et orchestré avec Apache Airflow un dispositif de monitoring des KPI, permettant de réduire de 70 % le temps d’analyse des équipes marketing.",
+      ]},
     {when:"Septembre 2023 – Août 2024 · 12 mois · Yaoundé",role:"Data Analyst",org:"Togettech",tag:"Energie",points:[
       "Conçu un pipeline ELT complet sous Databricks pour structurer les données de consommation énergétique de 586 ménages",
-      "Réduit de 35 % le délai de mise à disposition des données aux équipes métier en industrialisant le pipeline de reporting en production",
-      "Livré des modèles de données exploitables et des tableaux de bord Power BI Service pour un suivi fiable des indicateurs de consommation",
+      "Réduire de 35 % le délai de mise à disposition des données aux équipes métier en industrialisant le pipeline de reporting en production",
+      "Livrer des modèles de données exploitables et des tableaux de bord Power BI Service pour un suivi fiable des indicateurs de consommation",
     ]},
     {when:"Septembre 2022 – Septembre 2023 · 12 mois · Yaoundé",role:"Data Analyst",org:"Togettech",tag:"Agriculture / climat",points:[
-      "Construit un pipeline ETL avec via un api python intégrant plus de 10 000 enregistrements climatiques issus de 5 villes de l'Ouest Cameroun (données ONACC)",
+      "Construire un pipeline ETL avec via un api python intégrant plus de 10 000 enregistrements climatiques et agricoles issus de 5 villes de l'Ouest Cameroun (données ONACC)",
       "Modélisé et enrichi des données brutes multi-sources pour permettre une analyse temporelle et régionale fiable",
-      "Livraison d’un rapport Power BI publié sur Power BI Service, connecté à un modèle de données structuré et utilisé par les décideurs agricoles.",
+      "Livrer un rapport Power BI publié sur Power BI Service, connecté à un modèle de données structuré et utilisé par les décideurs agricoles.",
       ]}
   ],
   tools: [
