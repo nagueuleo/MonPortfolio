@@ -20,7 +20,7 @@ const DATA = {
       "Conception de tableaux de bord Power BI et orchestration avec Apache Airflow d'un dispositif de monitoring des KPI.",
       "Automatisation du suivi des indicateurs de performance, permettant de réduire de 70 % le temps d'analyse des équipes marketing."
       ]},
-    {when:"Septembre 2023 – Août 2024 · 12 mois · Yaoundé",role:"Data Analyst",org:"Togettech",tag:"Energie",points:[
+    {when:"Septembre 2023 – Août 2024 · 12 mois · Yaoundé",role:"Data anlyst | Analytics engineer",org:"Togettech",tag:"Energie",points:[
       "Conception et développement d'un pipeline ELT complet sous Databricks pour collecter, transformer et structurer les données de consommation énergétique de 586 ménages.",
       "Industrialisation du pipeline de reporting et optimisation des traitements de données, permettant de réduire de 35 % les délais de mise à disposition des données aux équipes métier.",
       "Modélisation des données et production de jeux de données exploitables pour l'analyse des indicateurs de consommation énergétique.",
